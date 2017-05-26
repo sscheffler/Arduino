@@ -21,7 +21,6 @@ void loop() {
   setColor(255,0,255, d);
   setColor(255, 20, 0, d);
   setColor(255, 15, 150, d);
-  resetColor();
 }
 
 void setColor(int r, int g, int b, int d){
