@@ -25,7 +25,7 @@ void loop() {
     setStateAnalog(0,0,255);
     Serial.println("Sensor not active");
   }
-  delay(3000);
+  delay(500);  
 }
 
 
