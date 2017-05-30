@@ -22,10 +22,10 @@ void loop() {
   pirValue = digitalRead(pirPin);
   if(pirValue==1){
     Serial.println("Sensor active");
-    fadeUp(255,30,0);
+    fadeUp(0,10,255);
   } else {
     Serial.println("Sensor not active");
-    fadeUp(255,0,100);
+    fadeUp(100,0,255);
   }
   delay(100);  
 }
