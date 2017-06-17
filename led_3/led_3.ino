@@ -1,6 +1,8 @@
 // NeoPixel Ring simple sketch (c) 2013 Shae Erisson
 // released under the GPLv3 license to match the rest of the AdaFruit NeoPixel library
 
+// < 20
+
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
   #include <avr/power.h>
@@ -20,12 +22,15 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 #define delayLed 0
-#define timeOffset 15000
+#define timeOffset 10000
 
 boolean isUp=false;
 int pirPin = 12;
 int pirPin_2 = 11;
 unsigned long startTime = 0;
+
+//bright white: 255,172,68
+// deeper: 200,42,10
 
 
 void setup() {
@@ -61,7 +66,9 @@ void loop() {
       off();
       isUp=false;
     }
-  } 
+  } else if(movingSensor == HIGH || movingSensor_2 == HIGH) {
+    startTime=millis();
+  }
 }
 
 boolean delayExceeded(){
@@ -72,7 +79,8 @@ void on(){
   Serial.println("up");
   digitalWrite(13, HIGH);
   for(int i=0;i<NUMPIXELS;i++){
-     pixels.setPixelColor(i, pixels.Color(255,172,68));
+     //pixels.setPixelColor(i, pixels.Color(255,172,68));
+     pixels.setPixelColor(i, pixels.Color(200,42,10));
      delay(delayLed);
      pixels.show();
   }

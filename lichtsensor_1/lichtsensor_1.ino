@@ -30,20 +30,36 @@ void setup() {
 void loop() {
   //digitalWrite(13, HIGH);
   int val = analogRead(LIGHT_PIN);
-  //Serial.println(val);
-  //pixels.setPixelColor(12, pixels.Color(0,255,255)); // Moderately bright green color.
-  if(val > 200){
-    pixels.setPixelColor(0, pixels.Color(255, 0, 0)); // Moderately bright green color.
-  } else {
-    pixels.setPixelColor(0, pixels.Color(0, 255, 0)); // Moderately bright green color.
+  Serial.println(val);
+  //pixels.setPixelColor(12, pixels.Color(0,255,255)); 
+  /*if(val < 40){
+    pixels.setPixelColor(0, pixels.Color(255, 0, 0)); 
+  } 
+  if(val < 30){
+    pixels.setPixelColor(1, pixels.Color(255, 0, 0)); 
   }
+  if(val < 20){
+    pixels.setPixelColor(2, pixels.Color(255, 0, 0)); 
+  }
+  if(val < 10){
+    pixels.setPixelColor(3, pixels.Color(255, 0, 0)); 
+  }
+  if(val >= 40){
+    pixels.setPixelColor(5, pixels.Color(0, 255, 0)); 
+  }
+  pixels.show();*/
+
+  pixels.setPixelColor(0, pixels.Color(255,172,68)); // Moderately bright green color.
+  //pixels.setPixelColor(13, pixels.Color(255,172,68)); // Moderately bright green color.
+  //pixels.setPixelColor(14, pixels.Color(255,172,68)); // Moderately bright green color.
+  pixels.setPixelColor(15, pixels.Color(200,42,10)); // Moderately bright green color.
   pixels.show();
-  /*for(int i=0;i<NUMPIXELS;i++){
+  for(int i=0;i<4;i++){
      // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
      //255,172,68
-     pixels.setPixelColor(i, pixels.Color(100,100,255)); // Moderately bright green color.
+     pixels.setPixelColor(i, pixels.Color(200,42,10)); // Moderately bright green color.
      pixels.show(); // This sends the updated pixel color to the hardware.
      //delay(100);
-  }*/
+  }
         
 }

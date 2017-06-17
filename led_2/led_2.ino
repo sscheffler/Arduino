@@ -21,7 +21,7 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ80
 
 #define delayLed 50
 #define delayShutdown 1000
-#define sleep 5000
+#define sleep 10000
 
 
 boolean isUp=false;
@@ -50,7 +50,8 @@ void loop() {
         Serial.println("up");
         for(int i=0;i<NUMPIXELS;i++){
            // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-           pixels.setPixelColor(i, pixels.Color(255,172,68)); // warm white
+           //pixels.setPixelColor(i, pixels.Color(255,172,68)); // warm white
+           pixels.setPixelColor(i, pixels.Color(200,42,10)); // more eye friendly
            pixels.show(); // This sends the updated pixel color to the hardware.
            delay(delayLed); // Delay for a period of time (in milliseconds).
         }
