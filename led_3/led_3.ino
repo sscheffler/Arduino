@@ -82,9 +82,8 @@ void on(){
      //pixels.setPixelColor(i, pixels.Color(255,172,68));
      pixels.setPixelColor(i, pixels.Color(200,42,10));
      delay(delayLed);
-     pixels.show();
   }
-  
+  pixels.show();
 }
 
 void off(){
