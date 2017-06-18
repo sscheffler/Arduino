@@ -50,7 +50,6 @@ void loop() {
   int lightSensor = analogRead(LIGHT_PIN);
   int movingSensor = digitalRead(pirPin);
   int movingSensor_2 = digitalRead(pirPin_2);
-  Serial.println(lightSensor);
 
   
   if(lightSensor < 25){
@@ -81,6 +80,8 @@ void loop() {
   } else {
     statusPixels.setPixelColor(0, pixels.Color(10,0,0));
     statusPixels.show();
+    off();
+    startTime = startTime - (timeOffset+1);
   }
 
 /*if(movingSensor==HIGH && !isUp){
