@@ -43,18 +43,23 @@ void setup() {
   pinMode(pirPin_2, INPUT);
   pinMode(13, OUTPUT);
   pixels.begin();
+  statusPixels.begin();
 }
 
 void loop() {
   int lightSensor = analogRead(LIGHT_PIN);
   int movingSensor = digitalRead(pirPin);
   int movingSensor_2 = digitalRead(pirPin_2);
-  if(lightSensor < 20){
-    statusPixels.setPixelColor(0, pixels.Color(0,100,0));
+  Serial.println(lightSensor);
+
+  
+  if(lightSensor < 25){
+    statusPixels.setPixelColor(0, pixels.Color(0,10,0));
     statusPixels.show();
+
     
     if(delayExceeded()){
-      statusPixels.setPixelColor(0, pixels.Color(0,0,100));
+      statusPixels.setPixelColor(0, pixels.Color(0,0,10));
       statusPixels.show();
       if ((movingSensor == HIGH || movingSensor_2 == HIGH) && !isUp) {
         Serial.print(movingSensor);
@@ -64,7 +69,7 @@ void loop() {
         on();
         isUp=true;
       } else if(isUp) {
-        statusPixels.setPixelColor(0, pixels.Color(0,100,0));
+        statusPixels.setPixelColor(0, pixels.Color(0,10,0));
         statusPixels.show();
         
         off();
@@ -74,7 +79,7 @@ void loop() {
       startTime=millis();
     }    
   } else {
-    statusPixels.setPixelColor(0, pixels.Color(100,0,0));
+    statusPixels.setPixelColor(0, pixels.Color(10,0,0));
     statusPixels.show();
   }
 
