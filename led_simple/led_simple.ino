@@ -11,7 +11,7 @@
 #define PIN            6
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS     16
+#define NUMPIXELS     10
 
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
@@ -26,17 +26,30 @@ void setup() {
   Serial.begin(9600);
     pinMode(13, OUTPUT);
   pixels.begin(); // This initializes the NeoPixel library.
+  for(int i=0;i<NUMPIXELS;i++){
+       // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+       //255,172,68
+       pixels.setPixelColor(i, pixels.Color(200,40,10)); // Moderately bright green color.
+       
+      }
+      pixels.show();
 }
 
 void loop() {
   digitalWrite(13, HIGH);
   //pixels.setPixelColor(12, pixels.Color(0,255,255)); // Moderately bright green color.
-  for(int i=0;i<NUMPIXELS;i++){
-     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-     //255,172,68
-     pixels.setPixelColor(i, pixels.Color(100,100,255)); // Moderately bright green color.
-     pixels.show(); // This sends the updated pixel color to the hardware.
-     //delay(100);
-  }
+    for(int j=10;j>=0;j--){
+      for(int i=0;i<NUMPIXELS;i++){
+       // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+       //255,172,68
+       pixels.setPixelColor(i, pixels.Color(20*j,4*j,j)); // Moderately bright green color.
+       
+      }
+      pixels.show(); // This sends the updated pixel color to the hardware.
+       delay(30);  
+    }
+
+  
+  
         
 }

@@ -25,7 +25,7 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel statusPixels = Adafruit_NeoPixel(NUMPIXELS_STATUS, PIN_STATUS, NEO_GRB + NEO_KHZ800);
 
-#define delayLed 0
+#define delayLed 30
 #define timeOffset 10000
 
 boolean isUp=false;
@@ -34,7 +34,7 @@ int pirPin_2 = 11;
 unsigned long startTime = 0;
 
 //bright white: 255,172,68
-// deeper: 200,42,10
+// deeper: 200,40,10
 
 
 void setup() {
@@ -44,6 +44,7 @@ void setup() {
   pinMode(13, OUTPUT);
   pixels.begin();
   statusPixels.begin();
+  digitalWrite(13, LOW);
 }
 
 void loop() {
@@ -53,9 +54,10 @@ void loop() {
 
   
   if(lightSensor < 25){
+    Serial.println(lightSensor);
     statusPixels.setPixelColor(0, pixels.Color(0,10,0));
     statusPixels.show();
-
+    
     
     if(delayExceeded()){
       statusPixels.setPixelColor(0, pixels.Color(0,0,10));
@@ -101,22 +103,24 @@ boolean delayExceeded(){
 
 void on(){
   Serial.println("up");
-  digitalWrite(13, HIGH);
-  for(int i=0;i<NUMPIXELS;i++){
-     //pixels.setPixelColor(i, pixels.Color(255,172,68));
-     pixels.setPixelColor(i, pixels.Color(200,42,10));
-     delay(delayLed);
+  for(int j=1;j<=10;j++){
+    for(int i=0;i<NUMPIXELS;i++){
+     pixels.setPixelColor(i, pixels.Color(20*j,4*j,j));
+    }
+    pixels.show();
+    delay(delayLed);  
   }
-  pixels.show();
 }
 
 void off(){
   Serial.println("down");
-  digitalWrite(13, LOW);
-    for(int i=0;i<NUMPIXELS;i++){
-       pixels.setPixelColor(i, pixels.Color(0,0,0));
-     }
-     pixels.show();
+  for(int j=10;j>=0;j--){
+      for(int i=0;i<NUMPIXELS;i++){
+       pixels.setPixelColor(i, pixels.Color(20*j,4*j,j));
+      }
+      pixels.show();
+       delay(delayLed);  
+    }
 }
 
 
