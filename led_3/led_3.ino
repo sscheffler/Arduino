@@ -52,7 +52,6 @@ void loop() {
   int movingSensor = digitalRead(pirPin);
   int movingSensor_2 = digitalRead(pirPin_2);
 
-  
   if(lightSensor < 25){
     Serial.println(lightSensor);
     statusPixels.setPixelColor(0, pixels.Color(0,10,0));
