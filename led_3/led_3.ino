@@ -58,7 +58,7 @@ void loop() {
     statusPixels.setPixelColor(0, pixels.Color(0,10,0));
     statusPixels.show();
     
-    
+    // giving a range of 5 [see els if] to avoid alternating states 
     if(delayExceeded()){
       statusPixels.setPixelColor(0, pixels.Color(0,0,10));
       statusPixels.show();
@@ -77,9 +77,9 @@ void loop() {
         isUp=false;
       }
     } else if(movingSensor == HIGH || movingSensor_2 == HIGH) {
-      startTime=millis();
+      resetDelay();
     }    
-  } else {
+  } else if(lightSensor > 30) {
     statusPixels.setPixelColor(0, pixels.Color(10,0,0));
     statusPixels.show();
     if(isUp) {
@@ -99,6 +99,10 @@ void loop() {
   
   //Serial.println(movingSensor);
   
+}
+
+void resetDelay(){
+  startTime=millis();
 }
 
 boolean delayExceeded(){
