@@ -1,8 +1,6 @@
-// NeoPixel Ring simple sketch (c) 2013 Shae Erisson
-// released under the GPLv3 license to match the rest of the AdaFruit NeoPixel library
-
-// < 20
-
+#include <avr/wdt.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
   #include <avr/power.h>
@@ -45,6 +43,7 @@ void setup() {
   pixels.begin();
   statusPixels.begin();
   digitalWrite(13, LOW);
+  prepareTimer();
 }
 
 void loop() {
@@ -54,38 +53,47 @@ void loop() {
 
   if(lightSensor < 25){
     Serial.println(lightSensor);
-    statusPixels.setPixelColor(0, pixels.Color(0,10,0));
-    statusPixels.show();
+    
     
     // giving a range of 5 [see els if] to avoid alternating states 
     if(delayExceeded()){
-      statusPixels.setPixelColor(0, pixels.Color(0,0,10));
+      //statusPixels.setPixelColor(0, pixels.Color(0,0,10));
+      statusPixels.setPixelColor(0, pixels.Color(0,0,0));
       statusPixels.show();
       if ((movingSensor == HIGH || movingSensor_2 == HIGH) && !isUp) {
+        statusPixels.setPixelColor(0, pixels.Color(0,10,0));
+        //statusPixels.setPixelColor(0, pixels.Color(0,0,0));
+        statusPixels.show();
         Serial.print(movingSensor);
         Serial.print("-");
         Serial.println(movingSensor_2);
         startTime=millis();
         on();
         isUp=true;
-      } else if(isUp) {
-        statusPixels.setPixelColor(0, pixels.Color(0,10,0));
+      } else {
+        statusPixels.setPixelColor(0, pixels.Color(0,0,0));
         statusPixels.show();
+        if(isUp) {
+          //statusPixels.setPixelColor(0, pixels.Color(0,10,0));
+        //statusPixels.show();
         
         off();
         isUp=false;
+      }
+        
       }
     } else if(movingSensor == HIGH || movingSensor_2 == HIGH) {
       resetDelay();
     }    
   } else if(lightSensor > 30) {
-    statusPixels.setPixelColor(0, pixels.Color(10,0,0));
+    //statusPixels.setPixelColor(0, pixels.Color(10,0,0));
+    statusPixels.setPixelColor(0, pixels.Color(0,0,0));
     statusPixels.show();
     if(isUp) {
       off();  
       isUp=false;
     }
-    
+    sleep(360);
     startTime = startTime - (timeOffset+1);
   }
 
@@ -130,4 +138,30 @@ void off(){
     }
 }
 
+void prepareTimer() {
+  MCUSR &= ~(1<<WDRF);
+  WDTCSR |= (1<<WDCE) | (1<<WDE);
+  WDTCSR =  WDTO_1S;
+  WDTCSR |= 1<<WDIE;
+}
 
+void sleep(int seconds){
+  for (int i = 0; i < seconds; i ++){
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    power_adc_disable();
+    power_spi_disable();
+    power_timer0_disable();
+    power_timer2_disable();
+    power_twi_disable();  
+    sleep_cpu();
+    power_all_enable();
+    sleep_disable();
+  }
+  
+}
+ 
+ISR(WDT_vect)
+{
+  return;
+}
