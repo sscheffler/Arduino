@@ -38,16 +38,16 @@ void setup() {
 void loop() {
   digitalWrite(13, HIGH);
   //pixels.setPixelColor(12, pixels.Color(0,255,255)); // Moderately bright green color.
-    for(int j=10;j>=0;j--){
-      for(int i=0;i<NUMPIXELS;i++){
-       // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-       //255,172,68
-       pixels.setPixelColor(i, pixels.Color(20*j,4*j,j)); // Moderately bright green color.
-       
+      for(int j=10;j>=0;j--){
+        for(int i=0;i<NUMPIXELS;i++){
+         // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+         //255,172,68
+         pixels.setPixelColor(i, pixels.Color(20*j,4*j,j)); // Moderately bright green color.
+         
+        }
+        pixels.show(); // This sends the updated pixel color to the hardware.
+         delay(30);  
       }
-      pixels.show(); // This sends the updated pixel color to the hardware.
-       delay(30);  
-    }
 
   
   

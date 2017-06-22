@@ -82,7 +82,11 @@ void loop() {
   } else {
     statusPixels.setPixelColor(0, pixels.Color(10,0,0));
     statusPixels.show();
-    off();
+    if(isUp) {
+      off();  
+      isUp=false;
+    }
+    
     startTime = startTime - (timeOffset+1);
   }
 
